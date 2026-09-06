@@ -18,7 +18,7 @@ function App() {
         <div>
           <h1>Get started</h1>
           <p>
-           <code>My first jenkine pipeline ci/cd build</code>
+           <code>My first jenkins pipeline ci/cd build</code>
           </p>
         </div>
         <button
