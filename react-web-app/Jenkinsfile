@@ -15,6 +15,16 @@ pipeline {
                 checkout scm
             }
         }
+        
+        stage('Check Files') {
+            steps {
+                sh '''
+                    pwd
+                    ls -la
+                    find . -maxdepth 2 -name package-lock.json -o -name package.json
+                '''
+            }
+        }
 
         stage('Set Environment') {
             steps {
@@ -25,38 +35,40 @@ pipeline {
                 '''
             }
         }
-
+        
         stage('Install Dependencies') {
             steps {
-                sh 'npm ci'
+                dir('react-web-app') {
+                    sh 'npm ci'
+                }
             }
         }
 
         stage('Lint Code') {
             steps {
-                sh 'npm run lint'
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                echo 'No test script configured'
+                dir('react-web-app') {
+                    sh 'npm run lint'
+                }
             }
         }
 
         stage('Build Application') {
             steps {
-                sh 'npm run build'
+                dir('react-web-app') {
+                    sh 'npm run build'
+                }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh '''
-                    docker build \
-                        -t ${IMAGE_NAME}:${BUILD_NUMBER} \
-                        -t ${IMAGE_NAME}:latest .
-                '''
+                dir('react-web-app') {
+                    sh '''
+                        docker build \
+                            -t ${IMAGE_NAME}:${BUILD_NUMBER} \
+                            -t ${IMAGE_NAME}:latest .
+                    '''
+                }
             }
         }
 
