@@ -16,7 +16,7 @@ function App() {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-          <h1>Get started</h1>
+          <h1>Get started with devops</h1>
           <p>
            <code>My first jenkins pipeline ci/cd build</code>
           </p>
