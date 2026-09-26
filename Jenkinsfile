@@ -38,37 +38,35 @@ pipeline {
         
         stage('Install Dependencies') {
             steps {
-                dir('react-web-app') {
-                    sh 'npm ci'
-                }
+                sh 'npm ci'
             }
         }
 
         stage('Lint Code') {
             steps {
-                dir('react-web-app') {
-                    sh 'npm run lint'
-                }
+                sh 'npm run lint'
+            }
+        }
+
+        stage('Test Application') {
+            steps {
+                sh 'npm test'
             }
         }
 
         stage('Build Application') {
             steps {
-                dir('react-web-app') {
-                    sh 'npm run build'
-                }
+                sh 'npm run build'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                dir('react-web-app') {
-                    sh '''
-                        docker build \
-                            -t ${IMAGE_NAME}:${BUILD_NUMBER} \
-                            -t ${IMAGE_NAME}:latest .
-                    '''
-                }
+                sh '''
+                    docker build \
+                        -t ${IMAGE_NAME}:${BUILD_NUMBER} \
+                        -t ${IMAGE_NAME}:latest .
+                '''
             }
         }
 
