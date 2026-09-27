@@ -18,7 +18,7 @@ function App() {
         <div>
           <h1>Get started with devops</h1>
           <p>
-           <code>My AWS codepipeline</code>
+           <code>My AWS CodeDeploy Pipeline</code>
           </p>
         </div>
         <button
